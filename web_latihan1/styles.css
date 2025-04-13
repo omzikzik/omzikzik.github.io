@@ -62,7 +62,7 @@ footer {
     width: 100%;
 }
 
-/* Form Container */
+/* Form Kontak */
 #formWA {
   background-color: #fff;
   padding: 30px 25px;
@@ -72,7 +72,6 @@ footer {
   max-width: 500px;
 }
 
-/* Form Elements */
 #formWA label {
   display: block;
   margin-bottom: 8px;
@@ -98,7 +97,6 @@ footer {
   box-shadow: 0 0 4px rgba(37, 211, 102, 0.3);
 }
 
-/* Button Style */
 #formWA button {
   background-color: #25D366;
   color: white;
