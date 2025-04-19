@@ -1,110 +1,64 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Halaman Web dengan CSS</title>
-  <link rel="stylesheet" href="styles.css" />
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <style>
-    .error {
-      color: red;
-      font-size: 0.9em;
-    }
-
-    .success-message {
-      color: green;
-      font-size: 1em;
-      display: none;
-      margin-top: 10px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Halaman Web dengan CSS</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header>
-    <h1>Selamat Datang di Website</h1>
-  </header>
-
-  <nav>
+    <header>
+        <h1>Selamat Datang di Website</h1>
+    </header>
+    
+    <nav>
     <ul>
-      <li><a href="#">Home</a></li>
-      <li><a href="#">Tentang</a></li>
-      <li><a href="#">Layanan</a></li>
-      <li><a href="#">Kontak</a></li>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Tentang</a></li>
+        <li><a href="#">Layanan</a></li>
+        <li><a href="#">Kontak</a></li>
     </ul>
-  </nav>
+</nav>
 
-  <div class="container">
+<div class="container">
     <aside class="sidebar">
-      <h2>Menu Samping</h2>
-      <ul>
-        <li><a href="#">Link 1</a></li>
-        <li><a href="#">Link 2</a></li>
-        <li><a href="#">Link 3</a></li>
-      </ul>
+        <h2>Menu Samping</h2>
+        <ul>
+            <li><a href="#">Link 1</a></li>
+            <li><a href="#">Link 2</a></li>
+            <li><a href="#">Link 3</a></li>
+        </ul>
     </aside>
-
     <main class="content">
-      <h2>Hubungi Kami via WhatsApp</h2>
-      <form id="formWA">
+     <h2>Hubungi Kami via WhatsApp</h2>
+     <form id="formWA">
         <label for="nama">Nama:</label>
-        <input type="text" id="nama" name="nama" required />
-        <span id="errorNama" class="error"></span>
-
+        <input type="text" id="nama" name="nama" required>
         <label for="pesan">Pesan:</label>
         <textarea id="pesan" name="pesan" rows="5" required></textarea>
-        <span id="errorPesan" class="error"></span>
-
         <button type="submit">Kirim ke WhatsApp</button>
-      </form>
-      <div class="success-message" id="successMessage">Pesan berhasil dikirim! Mengarahkan ke WhatsApp...</div>
+    </form>
     </main>
-  </div>
-
-  <footer>
+</div>
+<footer>
     <p>&copy; 2025 Website Saya</p>
-  </footer>
-
+</footer>
   <script>
-    $(document).ready(function () {
-      $('#formWA').submit(function (e) {
-        e.preventDefault();
+    document.getElementById("formWA").addEventListener("submit", function(event) {
+      event.preventDefault();
 
-        // Reset error & pesan sukses
-        $('.error').text('');
-        $('#successMessage').hide();
+      // Ambil nilai input
+      var nama = document.getElementById("nama").value;
+      var pesan = document.getElementById("pesan").value;
 
-        let nama = $('#nama').val().trim();
-        let pesan = $('#pesan').val().trim();
-        let isValid = true;
+      // Nomor WhatsApp tujuan (gunakan format internasional, tanpa + atau 0 di depan)
+      var noWA = "6285648683975"; // ganti dengan nomor kamu sendiri
 
-        if (nama === '') {
-          $('#errorNama').text('Nama wajib diisi.');
-          isValid = false;
-        }
+      // Gabungkan pesan
+      var teks = Halo, saya ${nama}.%0A${pesan};
 
-        if (pesan === '') {
-          $('#errorPesan').text('Pesan wajib diisi.');
-          isValid = false;
-        }
-
-        if (isValid) {
-          // Nomor WhatsApp tujuan
-          let noWA = '6285648683975';
-          let teks = `Halo, saya ${nama}.%0A${pesan}`;
-
-          // Tampilkan pesan sukses dengan animasi
-          $('#successMessage').fadeIn().delay(2000).fadeOut();
-
-          // Kosongkan form
-          $('#formWA')[0].reset();
-
-          // Arahkan ke WhatsApp setelah jeda
-          setTimeout(function () {
-            window.open(`https://wa.me/${noWA}?text=${teks}`, '_blank');
-          }, 2000);
-        }
-      });
+      // Buka link WhatsApp
+      window.open(https://wa.me/${6285648683975}?text=${teks}, "_blank");
     });
   </script>
 </body>
