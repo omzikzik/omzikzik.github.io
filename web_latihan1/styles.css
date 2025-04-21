@@ -87,6 +87,15 @@ footer {
   border-radius: 6px;
   margin-bottom: 20px;
   box-sizing: border-box;
+  font-size: 16px;
+}
+
+#formWA input:focus,
+#formWA textarea:focus {
+  border-color: #25D366;
+  outline: none;
+  box-shadow: 0 0 4px rgba(37, 211, 102, 0.3);
+}
 
 #formWA button {
   background-color: #25D366;
