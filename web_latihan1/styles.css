@@ -2,18 +2,18 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
+    background: linear-gradient(to bottom right, #e0f7fa, #ffffff);
 }
 
 header {
-    background: #333;
+    background: linear-gradient(to right, #006064, #0097a7);
     color: white;
     padding: 20px;
     text-align: center;
 }
 
 nav {
-    background: #444;
+    background: linear-gradient(to right, #004d40, #00796b);
     padding: 10px;
 }
 
@@ -42,18 +42,18 @@ nav ul li a {
 
 .sidebar {
     width: 25%;
-    background: #ddd;
+    background: linear-gradient(to bottom, #d7ccc8, #efebe9);
     padding: 20px;
 }
 
 .content {
     width: 75%;
-    background: white;
+    background: linear-gradient(to bottom, #ffffff, #f1f8e9);
     padding: 20px;
 }
 
 footer {
-    background: #333;
+    background: linear-gradient(to right, #263238, #37474f);
     color: white;
     text-align: center;
     padding: 10px;
@@ -87,28 +87,3 @@ footer {
   border-radius: 6px;
   margin-bottom: 20px;
   box-sizing: border-box;
-  font-size: 16px;
-}
-
-#formWA input:focus,
-#formWA textarea:focus {
-  border-color: #25D366;
-  outline: none;
-  box-shadow: 0 0 4px rgba(37, 211, 102, 0.3);
-}
-
-#formWA button {
-  background-color: #25D366;
-  color: white;
-  border: none;
-  padding: 12px 25px;
-  border-radius: 6px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-#formWA button:hover {
-  background-color: #1ebe5d;
-}
-
