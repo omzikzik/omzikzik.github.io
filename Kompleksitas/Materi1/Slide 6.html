@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+
+<html lang="id">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Jenis Kompleksitas</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&amp;family=Open+Sans:ital,wght@0,400;0,600;1,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #1e1b4b; /* Deep Indigo background */
+        }
+        h1, h2, h3 {
+            font-family: 'Montserrat', sans-serif;
+        }
+        p {
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            background-color: #1e1b4b;
+            color: white;
+            overflow: hidden;
+            padding: 50px 80px;
+        }
+        
+        /* Background decorative elements */
+        .decor-circle {
+            position: absolute;
+            border-radius: 50%;
+            z-index: 0;
+        }
+        .circle-1 {
+            width: 500px;
+            height: 500px;
+            top: -200px;
+            right: 400px;
+            background-color: #4f46e5; /* Indigo-600 */
+            opacity: 0.08;
+        }
+        .circle-2 {
+            width: 400px;
+            height: 400px;
+            bottom: -100px;
+            left: -100px;
+            background-color: #c084fc; /* Purple-400 */
+            opacity: 0.05;
+        }
+        
+        /* Header Section */
+        .header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2.5rem;
+            z-index: 10;
+            border-bottom: 3px solid #c084fc; /* Purple Accent */
+            padding-bottom: 1.5rem;
+            width: 100%;
+        }
+        
+        .header-icon-box {
+            background-color: rgba(192, 132, 252, 0.2);
+            width: 80px;
+            height: 80px;
+            border-radius: 16px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 1.5rem;
+        }
+        
+        .title-icon {
+            font-size: 2.5rem;
+            color: #d8b4fe; /* Purple-300 */
+        }
+        
+        .page-title {
+            font-size: 3rem;
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: -0.02em;
+        }
+        
+        /* Main Content Layout */
+        .content-area {
+            display: flex;
+            flex: 1;
+            flex-direction: column;
+            z-index: 10;
+        }
+        
+        /* Comparison Columns */
+        .comparison-container {
+            display: flex;
+            gap: 40px;
+            flex: 1;
+            margin-bottom: 30px;
+        }
+        
+        .compare-card {
+            flex: 1;
+            border-radius: 20px;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            transition: transform 0.3s ease;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        
+        /* Time Complexity Card Styling */
+        .card-time {
+            background-color: #312e81; /* Indigo-900 */
+            border: 2px solid #6366f1; /* Indigo-500 */
+        }
+        
+        .icon-box-time {
+            background-color: rgba(99, 102, 241, 0.2);
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            border: 2px solid #6366f1;
+        }
+        
+        .time-icon {
+            font-size: 2rem;
+            color: #a5b4fc;
+        }
+        
+        /* Space Complexity Card Styling */
+        .card-space {
+            background-color: #312e81; /* Indigo-900 */
+            border: 2px solid #d946ef; /* Fuchsia-500 */
+        }
+        
+        .icon-box-space {
+            background-color: rgba(217, 70, 239, 0.2);
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            border: 2px solid #d946ef;
+        }
+        
+        .space-icon {
+            font-size: 2rem;
+            color: #f5d0fe;
+        }
+        
+        .card-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 15px;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        .card-desc {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            color: #e0e7ff;
+            margin-bottom: 20px;
+        }
+        
+        .card-focus-tag {
+            margin-top: auto;
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .focus-primary {
+            background-color: #6366f1;
+            color: #ffffff;
+        }
+        
+        .focus-secondary {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #d1d5db;
+        }
+
+        /* Bottom Note */
+        .bottom-note {
+            background-color: rgba(99, 102, 241, 0.1);
+            border-radius: 12px;
+            padding: 20px 30px;
+            display: flex;
+            align-items: center;
+            border-left: 6px solid #fbbf24; /* Amber-400 */
+            margin-top: auto;
+        }
+        
+        .note-icon {
+            font-size: 2rem;
+            color: #fbbf24;
+            margin-right: 25px;
+        }
+        
+        .note-text {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #ffffff;
+        }
+        
+        .highlight {
+            color: #fbbf24;
+            font-weight: 800;
+        }
+
+        /* Footer */
+        .footer {
+            position: absolute;
+            bottom: 25px;
+            right: 40px;
+            color: #6366f1;
+            font-size: 0.9rem;
+            font-weight: 600;
+            z-index: 10;
+        }
+		
+				/* Navigation Buttons */
+.nav-buttons {
+    position: absolute;
+    bottom: 20px;
+    left: 40px;
+    display: flex;
+    gap: 12px;
+    z-index: 20;
+}
+
+.nav-btn {
+    background-color: #4f46e5;
+    color: white;
+    padding: 10px 18px;
+    border-radius: 9999px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+}
+
+.nav-btn:hover {
+    background-color: #6366f1;
+    transform: translateY(-2px);
+}
+    </style>
+</head>
+<body>
+<div class="slide-container">
+<!-- Background Decor -->
+<div class="decor-circle circle-1"></div>
+<div class="decor-circle circle-2"></div>
+<!-- Header Section -->
+<div class="header">
+<div class="header-icon-box">
+<i class="fas fa-stopwatch title-icon"></i>
+</div>
+<h1 class="page-title">Jenis Kompleksitas</h1>
+</div>
+<!-- Main Content -->
+<div class="content-area">
+<!-- Comparison Columns -->
+<div class="comparison-container">
+<!-- Time Complexity Column -->
+<div class="compare-card card-time">
+<div class="icon-box-time">
+<i class="fas fa-clock time-icon"></i>
+</div>
+<h2 class="card-title">1. Kompleksitas Waktu</h2>
+<p class="card-desc">
+                    Mengukur seberapa lama algoritma dijalankan berdasarkan pertumbuhan ukuran input data.
+                </p>
+<div style="margin-top: auto;">
+<span class="card-focus-tag focus-primary">
+<i class="fas fa-star" style="margin-right: 5px;"></i> Fokus Utama
+                    </span>
+</div>
+</div>
+<!-- Space Complexity Column -->
+<div class="compare-card card-space">
+<div class="icon-box-space">
+<i class="fas fa-microchip space-icon"></i>
+</div>
+<h2 class="card-title">2. Kompleksitas Ruang</h2>
+<p class="card-desc">
+                    Mengukur seberapa besar memori tambahan yang dibutuhkan selama proses eksekusi berlangsung.
+                </p>
+<div style="margin-top: auto;">
+<span class="card-focus-tag focus-secondary">
+                        Pendukung
+                    </span>
+</div>
+</div>
+</div>
+<!-- Bottom Focus Note -->
+<div class="bottom-note">
+<i class="fas fa-info-circle note-icon"></i>
+<div>
+<p class="note-text">
+                        Catatan Penting: Dalam mata kuliah ini, kita akan lebih banyak membedah <span class="highlight">Kompleksitas Waktu</span>.
+                    </p>
+</div>
+</div>
+</div>
+<!-- Footer -->
+<div class="footer">
+<p>Pengantar Kompleksitas Algoritma</p>
+</div>
+</div>
+
+<!-- Navigation Buttons -->
+<div class="nav-buttons">
+    <a href="Slide 5.html" class="nav-btn">
+        <i class="fas fa-arrow-left"></i> Previous
+    </a>
+    <a href="Slide 7.html" class="nav-btn">
+        Next <i class="fas fa-arrow-right"></i>
+    </a>
+</div>
+</body>
+</html>

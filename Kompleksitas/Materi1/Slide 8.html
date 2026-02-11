@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+
+<html lang="id">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Contoh: Linear Search vs Binary Search</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&amp;family=Open+Sans:ital,wght@0,400;0,600;1,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #1e1b4b; /* Deep Indigo background */
+        }
+        h1, h2, h3 {
+            font-family: 'Montserrat', sans-serif;
+        }
+        p {
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+        ul {
+            margin: 0;
+            padding-left: 1.2rem;
+        }
+        li {
+            margin-bottom: 0.5rem;
+        }
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            background-color: #1e1b4b;
+            color: white;
+            overflow: hidden;
+            padding: 50px 80px;
+        }
+        
+        /* Background decorative elements */
+        .decor-circle {
+            position: absolute;
+            border-radius: 50%;
+            z-index: 0;
+        }
+        .circle-1 {
+            width: 500px;
+            height: 500px;
+            top: -200px;
+            right: 400px;
+            background-color: #4f46e5; /* Indigo-600 */
+            opacity: 0.08;
+        }
+        .circle-2 {
+            width: 400px;
+            height: 400px;
+            bottom: -100px;
+            left: -100px;
+            background-color: #10b981; /* Emerald-500 */
+            opacity: 0.05;
+        }
+        
+        /* Header Section */
+        .header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2rem;
+            z-index: 10;
+            border-bottom: 3px solid #60a5fa; /* Blue Accent */
+            padding-bottom: 1.5rem;
+            width: 100%;
+        }
+        
+        .header-icon-box {
+            background-color: rgba(96, 165, 250, 0.2);
+            width: 80px;
+            height: 80px;
+            border-radius: 16px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 1.5rem;
+        }
+        
+        .title-icon {
+            font-size: 2.5rem;
+            color: #93c5fd; /* Blue-300 */
+        }
+        
+        .page-title {
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: -0.02em;
+        }
+        
+        /* Main Content Layout */
+        .content-area {
+            display: flex;
+            flex: 1;
+            flex-direction: column;
+            z-index: 10;
+        }
+        
+        /* Comparison Columns */
+        .comparison-container {
+            display: flex;
+            gap: 40px;
+            flex: 1;
+            margin-bottom: 25px;
+        }
+        
+        .compare-card {
+            flex: 1;
+            border-radius: 20px;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        
+        /* Linear Search Card Styling (Blue) */
+        .card-linear {
+            background-color: #172554; /* Blue-950 */
+            border: 2px solid #3b82f6; /* Blue-500 */
+        }
+        
+        .icon-box-linear {
+            background-color: rgba(59, 130, 246, 0.2);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            border: 2px solid #3b82f6;
+        }
+        
+        .linear-icon {
+            font-size: 1.5rem;
+            color: #93c5fd;
+        }
+        
+        /* Binary Search Card Styling (Green) */
+        .card-binary {
+            background-color: #064e3b; /* Emerald-900 */
+            border: 2px solid #10b981; /* Emerald-500 */
+        }
+        
+        .icon-box-binary {
+            background-color: rgba(16, 185, 129, 0.2);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            border: 2px solid #10b981;
+        }
+        
+        .binary-icon {
+            font-size: 1.5rem;
+            color: #6ee7b7;
+        }
+        
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 15px;
+            font-family: 'Montserrat', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .card-desc {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #e0e7ff;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        .list-feature li {
+            position: relative;
+            padding-left: 5px;
+        }
+        
+        .complexity-badge {
+            font-family: 'Courier New', monospace;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            background-color: rgba(255,255,255,0.1);
+        }
+        
+        /* Bottom Note */
+        .bottom-note {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 20px 30px;
+            display: flex;
+            align-items: center;
+            border-left: 6px solid #facc15; /* Yellow-400 */
+            margin-top: auto;
+        }
+        
+        .note-icon {
+            font-size: 2rem;
+            color: #facc15;
+            margin-right: 25px;
+        }
+        
+        .note-text {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #ffffff;
+        }
+        
+        .highlight {
+            color: #facc15;
+            font-weight: 800;
+        }
+
+        /* Footer */
+        .footer {
+            position: absolute;
+            bottom: 25px;
+            right: 40px;
+            color: #60a5fa;
+            font-size: 0.9rem;
+            font-weight: 600;
+            z-index: 10;
+        }
+
+		/* Navigation Buttons */
+.nav-buttons {
+    position: absolute;
+    bottom: 20px;
+    left: 40px;
+    display: flex;
+    gap: 12px;
+    z-index: 20;
+}
+
+.nav-btn {
+    background-color: #4f46e5;
+    color: white;
+    padding: 10px 18px;
+    border-radius: 9999px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+}
+
+.nav-btn:hover {
+    background-color: #6366f1;
+    transform: translateY(-2px);
+}
+    </style>
+</head>
+<body>
+<div class="slide-container">
+<!-- Background Decor -->
+<div class="decor-circle circle-1"></div>
+<div class="decor-circle circle-2"></div>
+<!-- Header Section -->
+<div class="header">
+<div class="header-icon-box">
+<i class="fas fa-search title-icon"></i>
+</div>
+<h1 class="page-title">Contoh: Linear Search vs Binary Search</h1>
+</div>
+<!-- Main Content -->
+<div class="content-area">
+<!-- Comparison Columns -->
+<div class="comparison-container">
+<!-- Linear Search Column -->
+<div class="compare-card card-linear">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<div class="icon-box-linear">
+<i class="fas fa-shoe-prints linear-icon"></i>
+</div>
+<div class="complexity-badge text-blue-300">O(n)</div>
+</div>
+<h2 class="card-title">Linear Search</h2>
+<div class="card-desc">
+<ul class="list-feature fa-ul" style="margin-left: 1.5em;">
+<li><span class="fa-li"><i class="fas fa-check text-blue-400"></i></span>Memeriksa setiap elemen data satu per satu dari awal hingga akhir.</li>
+<li><span class="fa-li"><i class="fas fa-check text-blue-400"></i></span>Sederhana, tidak butuh data terurut.</li>
+<li><span class="fa-li"><i class="fas fa-times text-red-400"></i></span><strong>Lambat:</strong> Semakin besar data, semakin lama waktu yang dibutuhkan.</li>
+</ul>
+</div>
+</div>
+<!-- Binary Search Column -->
+<div class="compare-card card-binary">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<div class="icon-box-binary">
+<i class="fas fa-bolt binary-icon"></i>
+</div>
+<div class="complexity-badge text-green-300">O(log n)</div>
+</div>
+<h2 class="card-title">Binary Search</h2>
+<div class="card-desc">
+<ul class="list-feature fa-ul" style="margin-left: 1.5em;">
+<li><span class="fa-li"><i class="fas fa-check text-green-400"></i></span>Membagi rentang data menjadi dua bagian di setiap langkah.</li>
+<li><span class="fa-li"><i class="fas fa-check text-green-400"></i></span><strong>Sangat Cepat:</strong> Efisien bahkan untuk jutaan data.</li>
+<li><span class="fa-li"><i class="fas fa-exclamation-triangle text-yellow-400"></i></span><strong>Syarat Wajib:</strong> Data harus sudah dalam kondisi terurut (sorted).</li>
+</ul>
+</div>
+</div>
+</div>
+<!-- Bottom Focus Note -->
+<div class="bottom-note">
+<i class="fas fa-lightbulb note-icon"></i>
+<div>
+<p class="note-text">
+                        Kesimpulan: Pemilihan algoritma yang tepat dapat <span class="highlight">menghemat waktu eksekusi secara drastis</span>, terutama pada skala data besar.
+                    </p>
+</div>
+</div>
+</div>
+<!-- Footer -->
+<div class="footer">
+<p>Pengantar Kompleksitas Algoritma</p>
+</div>
+</div>
+
+<!-- Navigation Buttons -->
+<div class="nav-buttons">
+    <a href="Slide 7.html" class="nav-btn">
+        <i class="fas fa-arrow-left"></i> Previous
+    </a>
+    <a href="Slide 9.html" class="nav-btn">
+        Next <i class="fas fa-arrow-right"></i>
+    </a>
+</div>
+</body>
+</html>

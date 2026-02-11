@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+
+<html lang="id">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Best, Average, dan Worst Case</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&amp;family=Open+Sans:ital,wght@0,400;0,600;1,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #1e1b4b; /* Deep Indigo background */
+        }
+        h1, h2, h3 {
+            font-family: 'Montserrat', sans-serif;
+        }
+        p {
+            margin: 0;
+        }
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            background-color: #1e1b4b;
+            color: white;
+            overflow: hidden;
+            padding: 40px 80px; /* Slightly adjusted padding for vertical space */
+        }
+        
+        /* Background decorative elements */
+        .decor-circle {
+            position: absolute;
+            border-radius: 50%;
+            z-index: 0;
+        }
+        .circle-1 {
+            width: 600px;
+            height: 600px;
+            top: -300px;
+            left: 340px;
+            background-color: #4f46e5; /* Indigo-600 */
+            opacity: 0.08;
+        }
+        .circle-2 {
+            width: 300px;
+            height: 300px;
+            bottom: -50px;
+            right: -50px;
+            background-color: #ec4899; /* Pink-500 */
+            opacity: 0.05;
+        }
+        
+        /* Header Section */
+        .header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2rem;
+            z-index: 10;
+            border-bottom: 3px solid #e0e7ff;
+            padding-bottom: 1.5rem;
+            width: 100%;
+        }
+        
+        .header-icon-box {
+            background-color: rgba(224, 231, 255, 0.1);
+            width: 70px;
+            height: 70px;
+            border-radius: 16px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 1.5rem;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .title-icon {
+            font-size: 2.2rem;
+            color: #ffffff;
+        }
+        
+        .page-title {
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: -0.02em;
+        }
+        
+        /* Main Content Layout */
+        .content-area {
+            display: flex;
+            flex: 1;
+            flex-direction: column;
+            z-index: 10;
+            justify-content: space-between;
+        }
+        
+        /* Three Columns Container */
+        .cases-container {
+            display: flex;
+            gap: 25px;
+            flex: 1;
+            align-items: stretch;
+            margin-bottom: 25px;
+        }
+        
+        .case-card {
+            flex: 1;
+            border-radius: 16px;
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            background-color: #312e81; /* Indigo-900 base */
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+
+        /* Specific Styles for Each Case */
+        
+        /* Best Case - Green */
+        .card-best {
+            border-top: 6px solid #10b981;
+        }
+        .icon-box-best {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: rgba(16, 185, 129, 0.15);
+            color: #10b981;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+        .title-best { color: #34d399; }
+
+        /* Average Case - Amber */
+        .card-avg {
+            border-top: 6px solid #f59e0b;
+        }
+        .icon-box-avg {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: rgba(245, 158, 11, 0.15);
+            color: #f59e0b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            border: 1px solid rgba(245, 158, 11, 0.3);
+        }
+        .title-avg { color: #fbbf24; }
+
+        /* Worst Case - Pink (Highlighted) */
+        .card-worst {
+            border-top: 6px solid #ec4899;
+            background-color: rgba(49, 46, 129, 0.8); /* Slightly different bg */
+            border: 2px solid #ec4899; /* Stronger border */
+            transform: scale(1.03); /* Slight pop */
+            z-index: 5;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+        }
+        .icon-box-worst {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: rgba(236, 72, 153, 0.15);
+            color: #ec4899;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            border: 1px solid rgba(236, 72, 153, 0.3);
+        }
+        .title-worst { color: #f472b6; }
+
+        /* Card Content Typography */
+        .card-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        .card-desc {
+            font-size: 1.05rem;
+            line-height: 1.5;
+            color: #e0e7ff;
+            margin-bottom: 15px;
+            flex-grow: 1;
+        }
+
+        .notation {
+            background-color: rgba(0,0,0,0.2);
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            font-weight: 700;
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-top: auto;
+        }
+
+        /* Bottom Alert/Note Box */
+        .alert-box {
+            background-color: rgba(236, 72, 153, 0.1);
+            border: 1px dashed #ec4899;
+            border-radius: 12px;
+            padding: 20px 25px;
+            display: flex;
+            align-items: center;
+            margin-top: 5px;
+        }
+
+        .alert-icon {
+            font-size: 2rem;
+            color: #ec4899;
+            margin-right: 20px;
+        }
+
+        .alert-text {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .highlight-text {
+            color: #f472b6; /* Pink Light */
+            font-weight: 800;
+            text-decoration: underline;
+            text-decoration-color: rgba(244, 114, 182, 0.5);
+            text-underline-offset: 4px;
+        }
+
+        /* Footer */
+        .footer {
+            position: absolute;
+            bottom: 25px;
+            right: 40px;
+            color: #6366f1;
+            font-size: 0.9rem;
+            font-weight: 600;
+            z-index: 10;
+        }
+        
+        /* Focus Badge */
+        .focus-badge {
+            position: absolute;
+            top: -15px;
+            right: 20px;
+            background-color: #ec4899;
+            color: white;
+            font-weight: 800;
+            font-size: 0.8rem;
+            padding: 5px 12px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+        }
+		
+				/* Navigation Buttons */
+.nav-buttons {
+    position: absolute;
+    bottom: 20px;
+    left: 40px;
+    display: flex;
+    gap: 12px;
+    z-index: 20;
+}
+
+.nav-btn {
+    background-color: #4f46e5;
+    color: white;
+    padding: 10px 18px;
+    border-radius: 9999px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+}
+
+.nav-btn:hover {
+    background-color: #6366f1;
+    transform: translateY(-2px);
+}
+		
+    </style>
+</head>
+<body>
+<div class="slide-container">
+<!-- Background Decor -->
+<div class="decor-circle circle-1"></div>
+<div class="decor-circle circle-2"></div>
+<!-- Header Section -->
+<div class="header">
+<div class="header-icon-box">
+<i class="fas fa-chart-line title-icon"></i>
+</div>
+<h1 class="page-title">Best, Average, &amp; Worst Case</h1>
+</div>
+<!-- Main Content -->
+<div class="content-area">
+<!-- 3 Columns Container -->
+<div class="cases-container">
+<!-- 1. Best Case -->
+<div class="case-card card-best">
+<div class="icon-box-best">
+<i class="fas fa-bolt"></i>
+</div>
+<h3 class="card-title title-best">Best Case</h3>
+<p class="card-desc">
+                    Kondisi "keberuntungan" di mana algoritma menyelesaikan tugas dengan langkah paling sedikit.
+                    <br/><br/>
+<span style="font-size: 0.9em; opacity: 0.8;">Contoh: Mencari angka 5, dan 5 ada di urutan pertama.</span>
+</p>
+<div class="notation" style="color: #34d399;">
+                    Ω(n) - Lower Bound
+                </div>
+</div>
+<!-- 2. Average Case -->
+<div class="case-card card-avg">
+<div class="icon-box-avg">
+<i class="fas fa-scale-balanced"></i>
+</div>
+<h3 class="card-title title-avg">Average Case</h3>
+<p class="card-desc">
+                    Kondisi rata-rata berdasarkan ekspektasi probabilistik dari input data yang acak.
+                    <br/><br/>
+<span style="font-size: 0.9em; opacity: 0.8;">Contoh: Item yang dicari ada di tengah-tengah daftar.</span>
+</p>
+<div class="notation" style="color: #fbbf24;">
+                    θ(n) - Tight Bound
+                </div>
+</div>
+<!-- 3. Worst Case (Highlighted) -->
+<div class="case-card card-worst">
+<div class="focus-badge">Prioritas Analisis</div>
+<div class="icon-box-worst">
+<i class="fas fa-triangle-exclamation"></i>
+</div>
+<h3 class="card-title title-worst">Worst Case</h3>
+<p class="card-desc">
+                    Kondisi terburuk di mana algoritma membutuhkan langkah/waktu maksimal.
+                    <br/><br/>
+<span style="font-size: 0.9em; opacity: 0.8;">Contoh: Item yang dicari ada di posisi paling akhir atau tidak ada.</span>
+</p>
+<div class="notation" style="color: #f472b6;">
+                    O(n) - Upper Bound
+                </div>
+</div>
+</div>
+<!-- Bottom Note Box -->
+<div class="alert-box">
+<i class="fas fa-shield-halved alert-icon"></i>
+<p class="alert-text">
+                Mengapa kita fokus pada <span class="highlight-text">Worst Case</span>? Karena ini memberikan jaminan performa: program tidak akan berjalan lebih lambat dari batas ini.
+            </p>
+</div>
+</div>
+<!-- Footer -->
+<div class="footer">
+<p>Pengantar Kompleksitas Algoritma</p>
+</div>
+</div>
+
+<!-- Navigation Buttons -->
+<div class="nav-buttons">
+    <a href="Slide 6.html" class="nav-btn">
+        <i class="fas fa-arrow-left"></i> Previous
+    </a>
+    <a href="Slide 8.html" class="nav-btn">
+        Next <i class="fas fa-arrow-right"></i>
+    </a>
+</div>
+</body>
+</html>

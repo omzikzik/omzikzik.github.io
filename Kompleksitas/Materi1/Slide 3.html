@@ -1,0 +1,324 @@
+Copy<!DOCTYPE html>
+
+<html lang="id">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Apa itu Algoritma</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&amp;family=Open+Sans:ital,wght@0,400;0,600;1,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #1e1b4b; /* Deep Indigo background */
+        }
+        h1, h2, h3 {
+            font-family: 'Montserrat', sans-serif;
+        }
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            background-color: #1e1b4b;
+            color: white;
+            overflow: hidden;
+            padding: 50px 80px;
+        }
+        
+        /* Background decorative elements */
+        .decor-circle {
+            position: absolute;
+            border-radius: 50%;
+            z-index: 0;
+        }
+        .circle-1 {
+            width: 600px;
+            height: 600px;
+            top: -200px;
+            right: -200px;
+            background-color: #4f46e5; /* Indigo-600 */
+            opacity: 0.08;
+        }
+        .circle-2 {
+            width: 300px;
+            height: 300px;
+            bottom: -50px;
+            left: -100px;
+            background-color: #2dd4bf; /* Teal-400 */
+            opacity: 0.05;
+        }
+        
+        /* Header Section */
+        .header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2rem;
+            z-index: 10;
+            border-bottom: 3px solid #4f46e5;
+            padding-bottom: 1.5rem;
+            width: 100%;
+        }
+        
+        .header-icon-box {
+            background-color: rgba(79, 70, 229, 0.2);
+            width: 80px;
+            height: 80px;
+            border-radius: 16px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 1.5rem;
+        }
+        
+        .title-icon {
+            font-size: 2.5rem;
+            color: #fbbf24; /* Amber-400 for brain icon */
+        }
+        
+        .page-title {
+            font-size: 3rem;
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: -0.02em;
+        }
+        
+        /* Main Content Layout */
+        .content-area {
+            display: flex;
+            flex: 1;
+            gap: 60px;
+            z-index: 10;
+            align-items: flex-start;
+        }
+        
+        /* Left Column: Definition */
+        .left-column {
+            flex: 3;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            padding-top: 10px;
+        }
+        
+        .definition-card {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 35px;
+            border-left: 8px solid #4f46e5;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .definition-title {
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #a5b4fc; /* Indigo-200 */
+            margin-bottom: 15px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+        }
+
+        .definition-title i {
+            margin-right: 10px;
+        }
+        
+        .definition-text {
+            font-size: 1.6rem;
+            line-height: 1.5;
+            font-weight: 600;
+            color: #ffffff;
+            margin: 0;
+        }
+        
+        .key-points {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .point-badge {
+            background-color: #312e81; /* Indigo-900 */
+            border: 1px solid #4f46e5;
+            padding: 12px 20px;
+            border-radius: 50px;
+            font-size: 1rem;
+            color: #c7d2fe;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+        }
+        
+        .point-badge i {
+            margin-right: 10px;
+            color: #2dd4bf;
+        }
+
+        /* Right Column: Role/Context */
+        .right-column {
+            flex: 2;
+            background-color: #312e81; /* Indigo-900 */
+            border-radius: 20px;
+            padding: 35px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border: 2px solid #4f46e5;
+            position: relative;
+        }
+        
+        .context-title {
+            font-size: 1.3rem;
+            color: #2dd4bf; /* Teal */
+            margin-bottom: 20px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+        }
+        
+        .context-title i {
+            margin-right: 12px;
+            font-size: 1.5rem;
+        }
+        
+        .context-text {
+            font-size: 1.2rem;
+            line-height: 1.7;
+            color: #e0e7ff; /* Indigo-100 */
+            margin-bottom: 20px;
+        }
+
+        .highlight-box {
+            background-color: rgba(45, 212, 191, 0.1);
+            border-radius: 12px;
+            padding: 20px;
+            border-left: 4px solid #2dd4bf;
+            margin-top: auto;
+        }
+        
+        .highlight-text {
+            font-size: 1.1rem;
+            font-style: italic;
+            color: #ffffff;
+            margin: 0;
+            font-weight: 600;
+        }
+
+        /* Footer */
+        .footer {
+            position: absolute;
+            bottom: 25px;
+            right: 40px;
+            color: #6366f1;
+            font-size: 0.9rem;
+            font-weight: 600;
+            z-index: 10;
+        }
+				/* Navigation Buttons */
+.nav-buttons {
+    position: absolute;
+    bottom: 20px;
+    left: 40px;
+    display: flex;
+    gap: 12px;
+    z-index: 20;
+}
+
+.nav-btn {
+    background-color: #4f46e5;
+    color: white;
+    padding: 10px 18px;
+    border-radius: 9999px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+}
+
+.nav-btn:hover {
+    background-color: #6366f1;
+    transform: translateY(-2px);
+}
+    </style>
+</head>
+<body>
+<div class="slide-container">
+<!-- Background Decor -->
+<div class="decor-circle circle-1"></div>
+<div class="decor-circle circle-2"></div>
+<!-- Header Section -->
+<div class="header">
+<div class="header-icon-box">
+<i class="fas fa-brain title-icon"></i>
+</div>
+<h1 class="page-title">Apa itu Algoritma?</h1>
+</div>
+<!-- Main Content -->
+<div class="content-area">
+<!-- Left Column: Definition -->
+<div class="left-column">
+<div class="definition-card">
+<div class="definition-title">
+<i class="fas fa-book-open"></i> Definisi
+                </div>
+<p class="definition-text">
+                    "Sekumpulan langkah yang <span style="color: #2dd4bf;">logis</span>, <span style="color: #2dd4bf;">sistematis</span>, dan <span style="color: #2dd4bf;">berurutan</span> untuk menyelesaikan suatu masalah."
+                </p>
+</div>
+<div class="key-points">
+<div class="point-badge">
+<i class="fas fa-arrow-right"></i> Langkah Logis
+                </div>
+<div class="point-badge">
+<i class="fas fa-layer-group"></i> Sistematis
+                </div>
+<div class="point-badge">
+<i class="fas fa-sort-numeric-down"></i> Berurutan
+                </div>
+</div>
+</div>
+<!-- Right Column: Role/Context -->
+<div class="right-column">
+<div class="context-title">
+<i class="fas fa-code"></i> Peran dalam Pemrograman
+            </div>
+<p class="context-text">
+                Algoritma bukan sekadar hasil akhir, melainkan <strong>proses</strong> bagaimana masalah tersebut diselesaikan.
+            </p>
+<p class="context-text">
+                Dua program bisa menghasilkan output yang sama persis, tetapi menggunakan algoritma yang sangat berbeda.
+            </p>
+<div class="highlight-box">
+<p class="highlight-text">
+                    "Algoritma adalah resep, program adalah masakannya."
+                </p>
+</div>
+</div>
+</div>
+<!-- Footer -->
+<div class="footer">
+<p>Pengantar Kompleksitas Algoritma</p>
+</div>
+</div>
+
+<!-- Navigation Buttons -->
+<div class="nav-buttons">
+    <a href="Slide 2.html" class="nav-btn">
+        <i class="fas fa-arrow-left"></i> Previous
+    </a>
+    <a href="Slide 4.html" class="nav-btn">
+        Next <i class="fas fa-arrow-right"></i>
+    </a>
+</div>
+</body>
+</html>

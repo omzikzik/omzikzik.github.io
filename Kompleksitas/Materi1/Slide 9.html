@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+
+<html lang="id">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Pengantar Notasi Big-O</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&amp;family=Open+Sans:ital,wght@0,400;0,600;1,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #1e1b4b; /* Deep Indigo background */
+        }
+        h1, h2, h3 {
+            font-family: 'Montserrat', sans-serif;
+        }
+        p {
+            margin: 0;
+        }
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            background-color: #1e1b4b;
+            color: white;
+            overflow: hidden;
+            padding: 40px 80px;
+        }
+        
+        /* Background decorative elements */
+        .decor-circle {
+            position: absolute;
+            border-radius: 50%;
+            z-index: 0;
+        }
+        .circle-1 {
+            width: 600px;
+            height: 600px;
+            top: -300px;
+            right: -150px;
+            background-color: #4f46e5; /* Indigo-600 */
+            opacity: 0.08;
+        }
+        .circle-2 {
+            width: 350px;
+            height: 350px;
+            bottom: -80px;
+            left: -80px;
+            background-color: #ef4444; /* Red-500 */
+            opacity: 0.05;
+        }
+        
+        /* Header Section */
+        .header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            z-index: 10;
+            border-bottom: 3px solid #ef4444; /* Red Accent */
+            padding-bottom: 1rem;
+            width: 100%;
+        }
+        
+        .header-icon-box {
+            background-color: rgba(239, 68, 68, 0.2);
+            width: 70px;
+            height: 70px;
+            border-radius: 16px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 1.5rem;
+        }
+        
+        .title-icon {
+            font-size: 2.2rem;
+            color: #fca5a5; /* Red-300 */
+        }
+        
+        .page-title {
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: -0.02em;
+        }
+        
+        /* Main Content Layout */
+        .content-area {
+            display: flex;
+            flex: 1;
+            flex-direction: column;
+            z-index: 10;
+        }
+
+        /* Intro Text */
+        .intro-box {
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 15px 25px;
+            border-radius: 12px;
+            border-left: 5px solid #ef4444;
+            margin-bottom: 25px;
+        }
+        
+        .intro-text {
+            font-size: 1.1rem;
+            color: #e0e7ff;
+            line-height: 1.5;
+        }
+
+        /* Big-O Grid */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            flex: 1;
+            margin-bottom: 20px;
+        }
+        
+        .notation-card {
+            background-color: #312e81; /* Indigo-900 */
+            border-radius: 16px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+            transition: transform 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Card Styles by Complexity */
+        /* O(1) - Constant - Green */
+        .card-const {
+            border-top: 5px solid #10b981;
+        }
+        .badge-const {
+            background-color: rgba(16, 185, 129, 0.2);
+            color: #34d399;
+            border: 1px solid rgba(16, 185, 129, 0.4);
+        }
+        
+        /* O(log n) - Logarithmic - Blue */
+        .card-log {
+            border-top: 5px solid #3b82f6;
+        }
+        .badge-log {
+            background-color: rgba(59, 130, 246, 0.2);
+            color: #60a5fa;
+            border: 1px solid rgba(59, 130, 246, 0.4);
+        }
+
+        /* O(n) - Linear - Amber */
+        .card-lin {
+            border-top: 5px solid #f59e0b;
+        }
+        .badge-lin {
+            background-color: rgba(245, 158, 11, 0.2);
+            color: #fbbf24;
+            border: 1px solid rgba(245, 158, 11, 0.4);
+        }
+
+        /* O(n^2) - Quadratic - Red */
+        .card-quad {
+            border-top: 5px solid #ef4444;
+        }
+        .badge-quad {
+            background-color: rgba(239, 68, 68, 0.2);
+            color: #f87171;
+            border: 1px solid rgba(239, 68, 68, 0.4);
+        }
+
+        .notation-badge {
+            font-family: 'Courier New', monospace;
+            font-weight: 800;
+            font-size: 1.6rem;
+            padding: 10px 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            width: 100%;
+            letter-spacing: -1px;
+        }
+
+        .notation-name {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 10px;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .notation-desc {
+            font-size: 0.9rem;
+            color: #c7d2fe;
+            line-height: 1.4;
+            flex-grow: 1;
+        }
+        
+        .example-pill {
+            margin-top: 15px;
+            font-size: 0.8rem;
+            background-color: rgba(255,255,255,0.08);
+            padding: 4px 10px;
+            border-radius: 20px;
+            color: #e0e7ff;
+        }
+
+        /* Bottom Benefit Bar */
+        .benefit-bar {
+            background-color: #1e1b4b;
+            border: 2px dashed #6366f1;
+            border-radius: 12px;
+            padding: 15px 25px;
+            display: flex;
+            align-items: center;
+            margin-top: auto;
+        }
+        
+        .benefit-icon {
+            font-size: 1.8rem;
+            color: #818cf8;
+            margin-right: 20px;
+        }
+        
+        .benefit-content {
+            flex: 1;
+        }
+
+        .benefit-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #a5b4fc;
+            margin-bottom: 2px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .benefit-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        /* Footer */
+        .footer {
+            position: absolute;
+            bottom: 25px;
+            right: 40px;
+            color: #6366f1;
+            font-size: 0.9rem;
+            font-weight: 600;
+            z-index: 10;
+        }
+        
+        /* Arrow Graphic */
+        .arrow-graphic {
+            position: absolute;
+            bottom: 130px;
+            left: 80px;
+            right: 80px;
+            height: 10px;
+            background: #312e81;
+            border-radius: 5px;
+            z-index: 5;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 16%; /* Center markers under cards */
+        }
+        
+        .arrow-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to right, #10b981, #3b82f6, #f59e0b, #ef4444); /* Fallback is just color */
+            background-color: #4f46e5; /* Fallback */
+            opacity: 0.3;
+            border-radius: 5px;
+        }
+        
+        .speed-label {
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            position: absolute;
+            bottom: -25px;
+        }
+        
+				/* Navigation Buttons */
+.nav-buttons {
+    position: absolute;
+    bottom: 20px;
+    left: 40px;
+    display: flex;
+    gap: 12px;
+    z-index: 20;
+}
+
+.nav-btn {
+    background-color: #4f46e5;
+    color: white;
+    padding: 10px 18px;
+    border-radius: 9999px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+}
+
+.nav-btn:hover {
+    background-color: #6366f1;
+    transform: translateY(-2px);
+}
+		
+        .speed-fast { left: 0; color: #34d399; }
+        .speed-slow { right: 0; color: #f87171; }
+    </style>
+</head>
+<body>
+<div class="slide-container">
+<!-- Background Decor -->
+<div class="decor-circle circle-1"></div>
+<div class="decor-circle circle-2"></div>
+<!-- Header Section -->
+<div class="header">
+<div class="header-icon-box">
+<i class="fas fa-chart-area title-icon"></i>
+</div>
+<h1 class="page-title">Pengantar Notasi Big-O</h1>
+</div>
+<!-- Main Content -->
+<div class="content-area">
+<!-- Intro Text -->
+<div class="intro-box">
+<p class="intro-text">
+<strong>Notasi Big-O</strong> adalah cara standar untuk menggambarkan laju pertumbuhan waktu eksekusi atau kebutuhan ruang memori terhadap bertambahnya ukuran input (n).
+            </p>
+</div>
+<!-- Big-O Grid Cards -->
+<div class="grid-container">
+<!-- O(1) - Constant -->
+<div class="notation-card card-const">
+<div class="notation-badge badge-const">O(1)</div>
+<h3 class="notation-name">Konstan</h3>
+<p class="notation-desc">
+                    Waktu eksekusi tetap sama, berapapun jumlah datanya. Paling efisien.
+                </p>
+<div class="example-pill"><i class="fas fa-code"></i> Akses Array Index</div>
+</div>
+<!-- O(log n) - Logarithmic -->
+<div class="notation-card card-log">
+<div class="notation-badge badge-log">O(log n)</div>
+<h3 class="notation-name">Logaritmik</h3>
+<p class="notation-desc">
+                    Waktu bertambah sedikit saat data bertambah lipat ganda. Sangat efisien.
+                </p>
+<div class="example-pill"><i class="fas fa-code"></i> Binary Search</div>
+</div>
+<!-- O(n) - Linear -->
+<div class="notation-card card-lin">
+<div class="notation-badge badge-lin">O(n)</div>
+<h3 class="notation-name">Linear</h3>
+<p class="notation-desc">
+                    Waktu bertambah secara proporsional dengan jumlah data input.
+                </p>
+<div class="example-pill"><i class="fas fa-code"></i> Linear Search</div>
+</div>
+<!-- O(n^2) - Quadratic -->
+<div class="notation-card card-quad">
+<div class="notation-badge badge-quad">O(n²)</div>
+<h3 class="notation-name">Kuadratik</h3>
+<p class="notation-desc">
+                    Waktu meningkat drastis (kuadrat) seiring data bertambah. Kurang efisien.
+                </p>
+<div class="example-pill"><i class="fas fa-code"></i> Nested Loops</div>
+</div>
+</div>
+<!-- Visual Speed Indicator -->
+<div style="position: relative; height: 30px; margin-bottom: 20px;">
+<div style="height: 6px; background-color: rgba(255,255,255,0.1); border-radius: 3px; position: absolute; top: 12px; left: 20px; right: 20px;">
+<!-- Gradient simulation using segments -->
+<div style="position: absolute; left: 0; width: 25%; height: 100%; background-color: #10b981; border-radius: 3px 0 0 3px;"></div>
+<div style="position: absolute; left: 25%; width: 25%; height: 100%; background-color: #3b82f6;"></div>
+<div style="position: absolute; left: 50%; width: 25%; height: 100%; background-color: #f59e0b;"></div>
+<div style="position: absolute; left: 75%; width: 25%; height: 100%; background-color: #ef4444; border-radius: 0 3px 3px 0;"></div>
+</div>
+<span class="speed-label speed-fast" style="left: 20px;"><i class="fas fa-running"></i> Sangat Cepat</span>
+<span class="speed-label speed-slow" style="right: 20px;">Sangat Lambat <i class="fas fa-snail"></i></span>
+</div>
+<!-- Bottom Benefit Bar -->
+<div class="benefit-bar">
+<i class="fas fa-universal-access benefit-icon"></i>
+<div class="benefit-content">
+<p class="benefit-title">Manfaat Utama</p>
+<p class="benefit-text">
+                    Membandingkan efisiensi algoritma secara objektif tanpa bergantung pada hardware, bahasa pemrograman, atau compiler.
+                </p>
+</div>
+</div>
+</div>
+<!-- Footer -->
+<div class="footer">
+<p>Pengantar Kompleksitas Algoritma</p>
+</div>
+</div>
+
+<!-- Navigation Buttons -->
+<div class="nav-buttons">
+    <a href="Slide 8.html" class="nav-btn">
+        <i class="fas fa-arrow-left"></i> Previous
+    </a>
+    <a href="Slide 10.html" class="nav-btn">
+        Next <i class="fas fa-arrow-right"></i>
+    </a>
+</div>
+</body>
+</html>
